@@ -1,90 +1,65 @@
-# 🎬 Sistema de Recomendación de Películas
+# Sistema de recomendaciones de películas
 
-Sistema de recomendación progresivo que cubre fundamentos, filtrado basado en contenido y técnicas de NLP, construido con un dataset de ~45,000 películas.
+Este proyecto implementa un sistema recomendador de películas usando metadatos del dataset MovieLens/TMDB.
 
-## 📋 Contenido del Proyecto
+## Archivos principales
 
-| Módulo | Archivo | Descripción |
-|--------|---------|-------------|
-| Utilidades | `utils.py` | Carga de datos, limpieza, funciones compartidas |
-| Fundamentos | `01_fundamentos.py` | Teoría de recsys, EDA, recomendador por popularidad (WR/IMDB) |
-| Content-Based | `02_content_based.py` | TF-IDF, metadata soup, similitud coseno, filtros avanzados |
-| NLP | `03_nlp_tecnicas.py` | Tokenización, stemming, lematización, BoW vs TF-IDF, wordclouds |
+- `sistema_recomendaciones_peliculas.ipynb`: notebook principal del proyecto.
+- `data/movies_metadata.csv`: metadatos de películas.
+- `data/keywords.csv`: palabras clave de películas.
+- `requirements.txt`: dependencias necesarias.
 
-## 📂 Estructura
+## Funcionalidades
 
-```
-sistema_recomendaciones/
-├── data/
-│   ├── movies_metadata.csv   # ~45K películas (título, sinopsis, géneros, ratings...)
-│   └── keywords.csv          # ~46K entradas de keywords por película
-├── output/                   # Gráficas y visualizaciones generadas
-├── utils.py                  # Funciones utilitarias compartidas
-├── 01_fundamentos.py         # Módulo 1: Fundamentos
-├── 02_content_based.py       # Módulo 2: Content-Based Filtering
-├── 03_nlp_tecnicas.py        # Módulo 3: Técnicas de NLP
-├── requirements.txt          # Dependencias
-└── README.md                 # Este archivo
-```
+El notebook incluye:
 
-## 🚀 Instalación
+- Carga de datos.
+- Limpieza de identificadores.
+- Unión de `movies_metadata.csv` con `keywords.csv`.
+- Extracción de géneros y palabras clave.
+- Creación de una "sopa" de contenido.
+- Vectorización con `CountVectorizer`.
+- Cálculo de similitud coseno.
+- Recomendador básico por similitud.
+- Recomendador mejorado con filtro de popularidad.
+- Calificación ponderada estilo IMDb.
+
+## Instalación
+
+Crear entorno virtual:
 
 ```bash
-# Clonar el repositorio
-git clone <url-del-repo>
-cd sistema_recomendaciones
+python -m venv venv
+```
 
-# Instalar dependencias
+Activar entorno en Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Activar entorno en Mac/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Instalar dependencias:
+
+```bash
 pip install -r requirements.txt
-
-# Descargar datos de NLTK (necesario para el módulo 03)
-python -c "import nltk; nltk.download('punkt_tab'); nltk.download('stopwords'); nltk.download('wordnet')"
 ```
 
-## ▶️ Ejecución
+## Ejecución
 
-Cada módulo se ejecuta de forma independiente y genera salida en consola + gráficas en `output/`:
+Abrir el notebook:
 
 ```bash
-# Módulo 1: Fundamentos y análisis exploratorio
-python 01_fundamentos.py
-
-# Módulo 2: Sistema basado en contenido
-python 02_content_based.py
-
-# Módulo 3: Técnicas de NLP
-python 03_nlp_tecnicas.py
+jupyter notebook sistema_recomendaciones_peliculas.ipynb
 ```
 
-## 📊 ¿Qué aprenderás?
+También se puede ejecutar en Google Colab subiendo el notebook y los archivos CSV.
 
-### Módulo 1 — Fundamentos
-- Tipos de sistemas de recomendación (simple, content-based, colaborativo, híbrido)
-- Fórmula de Weighted Rating (promedio bayesiano de IMDB)
-- Análisis exploratorio con matplotlib
+## Conclusión
 
-### Módulo 2 — Content-Based Filtering
-- **TF-IDF**: Cómo convertir texto en vectores numéricos ponderados
-- **Similitud Coseno**: Medir la similitud entre documentos
-- **Metadata Soup**: Combinar múltiples fuentes de texto para mejores recomendaciones
-- Comparación TF-IDF vs CountVectorizer
-
-### Módulo 3 — NLP
-- Pipeline de preprocesamiento: tokenización → stopwords → stemming → lematización
-- Bag of Words vs TF-IDF: diferencias teóricas y prácticas
-- Extracción de n-gramas y keywords por género
-- Nubes de palabras (wordclouds)
-- Similitud coseno vs distancia euclidiana
-
-## 🛠️ Tecnologías
-
-- **Python 3.10+**
-- **pandas** — Manipulación de datos
-- **scikit-learn** — Vectorización (TF-IDF, CountVectorizer) y métricas de similitud
-- **NLTK** — Tokenización, stemming, lematización, stopwords
-- **matplotlib** — Visualizaciones
-- **wordcloud** — Nubes de palabras
-
-## 📄 Licencia
-
-MIT
+El proyecto demuestra cómo construir un sistema recomendador basado en contenido. Además, se mejora la calidad de las recomendaciones al combinar similitud con una calificación ponderada que toma en cuenta popularidad y número de votos.
